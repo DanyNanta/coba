@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Sudoku extends CI_Controller {
 
     public static $_GRID_SIZE = 9;
+    public static $board_solve;
 
     public function __construct()
     {
@@ -12,18 +13,8 @@ class Sudoku extends CI_Controller {
 
 	public function index()
 	{
-        
 		$this->load->view('welcome_message');
 	}
-
-    private function printBoard($board){
-        for($row = 0; $row < Sudoku::$_GRID_SIZE; $row++){
-            for($column = 0; $column < Sudoku::$_GRID_SIZE; $column++){
-                print_r($board[$row][$column]);
-            }
-            print_r();
-        }
-    }
     
     private function isNumberInRow($board, $number, $row){
         for($i = 0; $i < Sudoku::$_GRID_SIZE; $i++) {
@@ -72,6 +63,7 @@ class Sudoku extends CI_Controller {
                             $board[$row][$column] = $numberToTry;
 
                             if($this->solveBoard($board)){
+                                Sudoku::$board_solve[$row][$column] =$board[$row][$column];
                                 return true;
                             }
                             else {
@@ -91,9 +83,20 @@ class Sudoku extends CI_Controller {
         $board = json_decode($post['board']);
         $trying = $this->solveBoard($board);
         if($trying){
-            echo "Solved";
+            Sudoku::newBoard($board);
         } else {
             echo "Unsolved";
+        }        
+    }
+
+    public function newBoard($board){
+        for($i = 0; $i <Sudoku::$_GRID_SIZE ; $i++){
+            for($j=0; $j < Sudoku::$_GRID_SIZE ; $j++){
+                if($board[$i][$j] == 0){
+                    $board[$i][$j] = Sudoku::$board_solve[$i][$j];
+                } 
+            }
         }
+        print_r($board) ;
     }
 }
