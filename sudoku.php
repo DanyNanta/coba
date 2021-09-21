@@ -1,17 +1,6 @@
 <?php
   class Sudoku{
     private $_GRID_SIZE = 9;
-    public $board = array(
-        array(0,3,0,0,0,0,8,0,0),
-        array(0,0,6,3,0,0,0,4,2),
-        array(2,0,8,6,7,0,3,0,5),
-        array(8,5,0,0,1,0,6,2,0),
-        array(0,0,7,0,0,0,9,0,0),
-        array(0,4,9,0,5,0,0,1,8),
-        array(9,0,5,0,4,7,2,0,6),
-        array(3,7,0.0,0,6,4,0,0),
-        array(0,0,1,0,0,0,0,7,0)
-    );
 
     public function __construct(){
 
