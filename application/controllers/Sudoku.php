@@ -19,7 +19,7 @@ class Sudoku extends CI_Controller {
     private function printBoard($board){
         for($row = 0; $row < Sudoku::$_GRID_SIZE; $row++){
             for($column = 0; $column < Sudoku::$_GRID_SIZE; $column++){
-                print($board[$row][$column]);
+                print_r($board[$row][$column]);
             }
             print_r();
         }
@@ -91,9 +91,9 @@ class Sudoku extends CI_Controller {
         $board = json_decode($post['board']);
         $trying = $this->solveBoard($board);
         if($trying){
-            echo "Success";
+            echo "Solved";
         } else {
-            echo "Failure";
+            echo "Unsolved";
         }
     }
 }
